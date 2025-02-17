@@ -20,8 +20,8 @@ public:
         size = s;
     };
 
-    // Copy Constructo
-    Vector(Vector<T>& other) {
+    // Copy Constructor
+    Vector(const Vector<T>& other) {
         size = other.size;
         capacity = other.capacity;
         data = new T[capacity];
@@ -30,6 +30,46 @@ public:
             data[i] = other.data[i];
         }
     };
+    
+    // Copy Assignment Operator
+    Vector<T>& operator=(const Vector& other) {
+        if (this == &other) {
+            return this;
+        }
+        // Free exisiting resource occupied
+        delete[] data;
+
+        size = other.size;
+        data = new T[other.capacity];
+
+        for (size_t i = 0; i < size; i++) {
+            data[i] = other.data[i];
+        }
+        return *this;
+    }
+
+    // Move Consturtor
+    Vector(Vector&& other) : data(other.data), size(other.size), capacity(other.capacity) {
+        other.data = nullptr;
+        other.size = 0;
+        other.capacity = 0;
+    }
+
+    // Move Assignmnet Operator
+    Vector& operator=(Vector&& other) {
+        if (this != &other) {
+            delete[] data;
+
+            data = other.data;
+            size = other.size;
+            capacity = other.capacity;
+
+            other.data = nullptr;
+            other.size = 0;
+            other.capacity = 0;
+        }
+        return *this;
+    }
 
     // Destructor
     ~Vector() {
