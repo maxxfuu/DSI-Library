@@ -2,12 +2,15 @@
 
 int main() {
 
-    Vector<int>* vec = new Vector<int>();
-    vec->getCapacity();
-    vec->push_back(4);
+    Vector<int> vec1;
 
-    vec->getCapacity();
-    vec->getData(1);
+    // Invoke copy constructor
+    Vector<int> vec2 = vec1;
 
-return 0;
+    std::cout << &vec1 << std::endl;
+    std::cout << &vec2 << std::endl;
+
+    return 0;
 }
+
+// Helper Functions Work

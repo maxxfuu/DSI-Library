@@ -12,15 +12,29 @@ private:
     size_t capacity;
 
 public:
+    // Default Constructor
     Vector() : data(nullptr), size(0), capacity(0) {};
 
+    // Default Constructor w/ size parameter
     Vector(size_t s) : data(nullptr), capacity(0) {
         size = s;
     };
 
-    //Vector(const Vector& other) {}
+    // Copy Constructo
+    Vector(Vector<T>& other) {
+        size = other.size;
+        capacity = other.capacity;
+        data = new T[capacity];
 
-    ~Vector();
+        for (int i = 0; i < size; i++) {
+            data[i] = other.data[i];
+        }
+    };
+
+    // Destructor
+    ~Vector() {
+        delete[] data;
+    }
 
     void push_back(T value) {
         if (size == capacity) {
@@ -38,8 +52,12 @@ public:
             delete[] data;
             data = newData;
         }
+        /* std::cout << "currnet size before push back" << size << std::endl;
+        std::cout << "currnet value to be pushed" << value << std::endl; */
         data[size++] = value;
     }
+
+
 
     void getCapacity() {
         std::cout << "Current Capacity: " << this->capacity << std::endl;
