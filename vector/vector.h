@@ -97,8 +97,6 @@ public:
         data[size++] = value;
     }
 
-
-
     void getCapacity() {
         std::cout << "Current Capacity: " << this->capacity << std::endl;
     }
