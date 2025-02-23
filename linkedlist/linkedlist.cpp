@@ -28,5 +28,29 @@ int main() {
     std::cout << "Memory Address of (ll2): " << &ll2 << std::endl;
     std::cout << "Memory Address of (ll3): " << &ll3 << std::endl;
     
+    // Invoke Move Constructor
+    std::cout << "\n\nInvoke Move Constructor" << std::endl;
+    LinkedList<std::string> ll4 = std::move(ll2);
+    std::cout << "Memory Address of (ll2): " << &ll2 << std::endl;
+    std::cout << "Memory Address of (ll4): " << &ll4 << std::endl;
+
+    std::cout << "\n\nDisplay ll4 after moving resources from ll2" << std::endl;
+    ll4.display();
+
+    std::cout << "\n\nDisplay ll2 after moving resources to ll4" << std::endl;
+    ll2.display();
+
+    // Invoke Move Assignment Operator
+    LinkedList<std::string> ll5 = ll4;
+    std::cout << "Memory Address of (ll5): " << &ll5 << std::endl;
+    std::cout << "Memory Address of (ll4): " << &ll4 << std::endl;
+
+    std::cout << "\n\nDisplay ll4 after moving resources from ll2" << std::endl;
+    ll4.display();
+
+    std::cout << "\n\nDisplay ll5 after moving resources to ll5 from ll4" << std::endl;
+    ll5.display();
+
+
 return 0;
 }
