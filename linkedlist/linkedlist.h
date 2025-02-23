@@ -2,6 +2,7 @@
 #define LINKEDLIST_H
 
 #include <iostream>
+#include <cstdlib>
 
 template<typename T>
 class LinkedList{
@@ -15,6 +16,7 @@ private:
     };
     
     // Data Members
+    size_t size;
     Node* head;
     Node* tail;
     
@@ -31,34 +33,77 @@ private:
     void deepCopy(const LinkedList& other) {
         Node* current = other.head;
         while(current) {
-            insertAtEnd();
+            insertAtTail(current->data);
+            current = current->next;
         }
     }
 
 public:
-
     // Default Constructor
-    LinkedList() : head(nullptr), tail(nullptr){}
+    LinkedList() : size(0), head(nullptr), tail(nullptr){}
     
     // Copy Constuctor (Deep Copy)
-    LinkedList(const LinkedList& other) : head(nullptr), tail(nullptr) {}
+    LinkedList(const LinkedList& other) : size(0), head(nullptr), tail(nullptr) {
+        deepCopy(other);
+    }
     
+    // Copy Assignment Operator (Deep Copy)
     LinkedList& operator=(const LinkedList& other) {
         if (this != &other) {
             clear();
         }
-
-    }
-
-    ~LinkedList() {
     }
     
-    void insertAtEnd(const T& value) {
-        Node* newNode = new Node(value);
-        newNode->data = value;
-        newNode->next 
+    // Move Constructor (Transfer Resource)
+    LinkedList(LinkedList&& other) : head(other.head), tail(other.tail) {
+        other.head = nullptr;
+        other.tail = nullptr;
+        other.size = 0;
     }
 
+    // Move Assignment Operator (Transfer Resource)
+    LinkedList& operator=(LinkedList&& other) {
+        
+    }
+
+    // Destructor
+    ~LinkedList() {
+        clear();
+    }
+    
+    // Member Functions
+    void insertAtTail(const T& value) {
+        Node* newNode = new Node(value); // New node to be added.
+        if(!head) {
+            head = tail = newNode;
+            return;
+        }
+
+        tail->next = newNode; // Attach newNode to at the end of LinkedList
+        tail = newNode; // Update Tail Pointer
+        return;
+    }
+
+    void insertAtHead(const T& value) {
+        Node* newNode = new Node(value);
+        Node* temp = head;
+        head = newNode;
+        newNode->next = temp;
+        return;
+    }
+    
+    void display() const {
+        Node* curr = head;
+        std::cout << "HEAD->";
+        while(curr) {
+            std::cout << curr->data << "->";
+            curr = curr->next;
+        }
+        std::cout << "NULL" << std::endl;
+    }
+
+    void nodeMemory() {
+    }
 };
 
 #endif
