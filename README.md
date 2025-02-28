@@ -1,7 +1,7 @@
-# Containiner Library
+# Data Structure Implementation 
 
 Project for pedagogy purposes~
 
-- A reimplementation of the standard library to practice and learn about the language and its features.
-- The main objective, get comfortable with move semantics, rvlaue, and lvalue reference.
-- Anything C++ 11 to C++ 20
+- Reimplementation, including, but not limited to common data structures and C++ STL. Learn about the language and its features.
+- One of the main goals is to get comfortable with move semantics, rvlaue, and lvalue reference.
+- C++ Related Syntax and Semantics until C++ 17
