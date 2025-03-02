@@ -47,3 +47,8 @@ void vall(const Func &function, const T & ... param)
     function(param...);
 }
 
+5. Unique Pointers, Move Semantics
+
+6. Constexpr
+
+
