@@ -6,11 +6,6 @@
 
 template<typename T>
 class Vector {
-private:
-    T* data;
-    size_t size;
-    size_t capacity;
-
 public:
     // Default Constructor
     Vector() : data(nullptr), size(0), capacity(0) {};
@@ -19,6 +14,12 @@ public:
     Vector(size_t s) : data(nullptr), capacity(0) {
         size = s;
     };
+
+    // Variadic Constructor
+    template<typename... Args>
+    Vector(Args&&... args) : data(nullptr), size(0), capacity(0) {
+        (push_back(std::forward<Args>(args)), ...);
+    }
 
     // Copy Constructor
     Vector(const Vector<T>& other) {
@@ -108,6 +109,12 @@ public:
     void getData(int index) {
         std:: cout << "Data of index " << index << ": " << this->data[index] << std::endl;
     }
+
+private:
+    T* data;
+    size_t size;
+    size_t capacity;
+
 
 };
 

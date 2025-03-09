@@ -12,7 +12,9 @@ private:
     size_t size_;
 
 public:
-    // Default Constructor
+    Array() : data_(nullptr), size_(0) {
+    }
+
     Array(size_t size) : size_(size) {
         data_ = new T[size_];
     }
