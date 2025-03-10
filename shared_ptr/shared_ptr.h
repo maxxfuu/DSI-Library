@@ -10,16 +10,26 @@ public:
 
 };
 
+
+struct ControlBlock {
+    int count;
+    std::mutex mutex;
+};
+
 template<typename T>
 class SharedPtr {
 private:
-    T* ptr_;
-    int* ref_count_;
+    T* ptr_ = {nullptr};
+    ControlBlock* block_ {nullptr};
 
 public:
-    SharedPtr(T* ptr = nullptr) : ptr_(ptr), ref_count_(new int(1)) {
-        if (ptr) { // If ptr is 
-            std::cout << "SharedPtr created, Ref count = " << *ref_count_ << "\n";
+    // Default Constructor
+    SharedPtr() : ptr_(nullptr), block_(nullptr) { }
+
+    // Constructor With Pointer
+    SharedPtr(T* ptr) : ptr_(ptr), block_(nullptr) {
+        if (ptr_ != nullptr) {
+            block_ = new ControlBlock{1, std::mutex()};
         }
     }
     
@@ -29,6 +39,12 @@ public:
             (*ref_count_)++;
             std::cout << "SharedPtr shallowed copied, Ref count = " << *ref_count_ << "\n";
         }
+    }
+
+    // Move Constructor
+    SharedPtr(SharedPtr&& other) : ptr_(other.ptr_), ref_count_(other.ref_count_) {
+        other.ptr_ = nullptr;
+        other.ref_count_ = nullptr;
     }
 
     ~SharedPtr() {
