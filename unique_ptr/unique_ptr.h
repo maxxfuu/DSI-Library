@@ -15,6 +15,10 @@ class UniquePtr {
 private:
     T* pointer_;
 
+    void StealFrom(UniquePtr&& other) {
+        pointer_ = std::exchange(other.pointer_, nullptr);
+    }
+
 public:
     UniquePtr(T* p = nullptr) : pointer_(p) {}
     ~UniquePtr() { delete pointer_; }
